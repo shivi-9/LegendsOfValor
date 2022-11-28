@@ -2,7 +2,7 @@ package LegendsCode;
 
 /* This is the class which has functions and attributes related
  * to all types of Armors */
-public class Armor extends Equipable  {
+public class Armor extends Equippable  {
     private String name; // Name of the Item
     private int cost; // Cost of the Item
     private int reqLevel; // Level required to buy the item

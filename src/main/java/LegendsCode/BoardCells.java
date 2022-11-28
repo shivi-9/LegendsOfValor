@@ -2,17 +2,27 @@ package LegendsCode;
 
 /* This class has attributes and functions which has to be implemented on 
  * a specific board cell */
-public class BoardCells {
+public abstract class BoardCells {
     private String cellName = ""; // Name of that cell
     private String cellValue = ""; // Value of that cell 
     private int[] cellLocation = new int[2]; // Location of that cell
+    private String bgColour;
 
-    public BoardCells(String cellName, String cellValue, int[] cellLocation){
+    public String getBgColour() {
+        return bgColour;
+    }
+
+    public void setBgColour(String bgColour) {
+        this.bgColour = bgColour;
+    }
+
+    public BoardCells(String cellName, String cellValue, int[] cellLocation, String bgColour){
         this.cellName = cellName; 
         this.cellValue = cellValue;
         for(int i = 0; i < cellLocation.length; i++){
             this.cellLocation[i] = cellLocation[i];
         }
+        this.bgColour = bgColour;
     }
 
     public String getCellName() {
@@ -40,4 +50,5 @@ public class BoardCells {
             this.cellLocation[i] = cellLocation[i];
         }
     }
+
 }

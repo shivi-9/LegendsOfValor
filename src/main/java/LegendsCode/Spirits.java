@@ -11,7 +11,17 @@ public class Spirits implements Monster {
     private int defense; // An attribute which is used to calculate the reduced effective attack
     private int dodgeChance; // An attribute which is used to calculate the reduced effective attack
     private int hp; // Health points of monster
-    private Random random = new Random();
+    private int[] location = new int[2]; // Location of monster
+    private Random random = new Random(); 
+    private int lane; // lane for monster
+
+    public int getLane() {
+        return lane;
+    }
+
+    public void setLane(int lane) {
+        this.lane = lane;
+    }
 
     // This function randomly creates instances of type monster based on the level    
     public Boolean createMonster(int level){
@@ -182,5 +192,15 @@ public class Spirits implements Monster {
         System.out.println(name);
         System.out.println("\tHP: " + hp);
         System.out.println("************************************************");
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(int[] location) {
+        for(int i = 0; i < location.length; i++){
+            this.location[i] = location[i];
+        }
     }
 }

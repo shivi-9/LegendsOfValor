@@ -14,7 +14,7 @@ public interface Hero extends Roles{
     public abstract void setWeaponEquip(String wE);
     public abstract void setArmorEquip(String aE);
     public abstract void displayWeaponEquip();
-    public abstract void potionUsed(Potions potion);
+    public abstract void potionUsed();
     public abstract int heroAttacked(Roles monster1);
     public abstract int getMana();
     public abstract void setMana(int mana);
@@ -38,6 +38,12 @@ public interface Hero extends Roles{
     public abstract String getArmorEquip();
     public abstract int getHands();
     public abstract void setHands(int hands);
-    public abstract void equipHero();
-    public abstract void unequipHero();
+    public abstract void equipItem();
+    public abstract void unequipItem();
+    public abstract void changeItem();
+    public abstract Boolean canEquipItem();
+    public abstract Boolean canUnequipItem();
+    public abstract Boolean canChangeItem();
+    public abstract Boolean canDrinkPotion();
+    public abstract Boolean isInventory();
 }

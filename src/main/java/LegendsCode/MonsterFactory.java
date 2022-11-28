@@ -5,17 +5,17 @@ import java.util.*;;
 public class MonsterFactory {
     private Random random = new Random();
     //Function to create instances of Monster
-    public ArrayList<Roles> getMonster(ArrayList<Roles> heroList){
+    public ArrayList<Roles> getMonster(ArrayList<Integer> levels){
         int temp; 
         ArrayList<Roles> mList = new ArrayList<Roles>();
-        for(int i = 0; i < heroList.size(); i++){
+        for(int i = 0; i < levels.size(); i++){
             temp = random.nextInt(3);
             Monster m;
             if(temp == 0){
                 m = new Dragon();
                 Boolean monsterCreated = true;
                 while(monsterCreated){
-                    if(((Dragon) m).createMonster(heroList.get(i).getLevel())){
+                    if(((Dragon) m).createMonster(levels.get(i))){
                         monsterCreated = false;
                     }
                 }
@@ -25,7 +25,7 @@ public class MonsterFactory {
                 m = new Exoskeletons();
                 Boolean monsterCreated = true;
                 while(monsterCreated){
-                    if(((Exoskeletons) m).createMonster(heroList.get(i).getLevel())){
+                    if(((Exoskeletons) m).createMonster(levels.get(i))){
                         monsterCreated = false;
                     }
                 }
@@ -35,7 +35,7 @@ public class MonsterFactory {
                 m = new Spirits();
                 Boolean monsterCreated = true;
                 while(monsterCreated){
-                    if(((Spirits) m).createMonster(heroList.get(i).getLevel())){
+                    if(((Spirits) m).createMonster(levels.get(i))){
                         monsterCreated = false;
                     }
                 }

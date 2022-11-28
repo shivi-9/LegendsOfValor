@@ -2,6 +2,7 @@ package LegendsCode;
 
 /* Instance generator factory for Heroes typed Roles */
 public class HeroFactory {
+    
     // Function to display all the heros to choose from
     public void displayHeroList(){
         System.out.println("**All the Heroes start with experience level 1, 1800 gold coins and 100 HP**");

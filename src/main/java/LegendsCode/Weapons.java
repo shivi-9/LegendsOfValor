@@ -2,7 +2,7 @@ package LegendsCode;
 
 /* This is the class which has functions and attributes related
  * to all types of Potions */
-public class Weapons extends Equipable{
+public class Weapons extends Equippable{
     private String name; // Name of the weapon
     private int cost; // Cost of the weapon
     private int reqLevel; // Level required to buy that weapon

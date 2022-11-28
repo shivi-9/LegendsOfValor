@@ -19,7 +19,10 @@ public class Paladin implements Hero{
     private ArrayList<String> weaponEquip = new ArrayList<String>(); // Weapons currently equipped by the hero
     private String armorEquip; // Armor currently equipped by the hero
     private int hands; // Number of empty hands
-    private Scanner userInput = new Scanner(System.in);
+    private int[] location = new int[2]; // Location of Hero
+    private UserInput userInput = new UserInput();
+    private int lane; // lane of hero
+    private int life = 3; // everytime hero is respawned, it's life decremets by 1
      
     public Paladin(String name){
         this.name = name;
@@ -235,31 +238,65 @@ public class Paladin implements Hero{
     }
 
     // Function to implement effects of potion taken by hero
-    public void potionUsed(Potions potion){
-        if(potion.getName().equalsIgnoreCase("Healing_Potion")){
-            hp += 100;
-        }
-        else if(potion.getName().equalsIgnoreCase("Strength_Potion")){
-            strength += 75; 
-        }
-        else if(potion.getName().equalsIgnoreCase("Magic_Potion")){
-            mana += 100; 
-        }
-        else if(potion.getName().equalsIgnoreCase("Luck_Elixir")){
-            agility += 65; 
-        }
-        else if(potion.getName().equalsIgnoreCase("Mermaid_Tears")){
-            hp += 100;
-            mana += 100;
-            strength += 100;
-            agility += 100; 
-        }
-        else if(potion.getName().equalsIgnoreCase("Ambrosia")){
-            hp += 150;
-            mana += 150;
-            strength += 150;
-            agility += 150;
-            dexterity += 150;
+    public void potionUsed(){
+        int index = 0;
+        int check = 0;
+        while(true){
+            System.out.println("**********************************************************************************************");
+            System.out.println("You have following potion in your Inventory");
+            for(int i = 0; i < potionList.size(); i++){
+                System.out.println((i+1) + ". " + potionList.get(i).getName());
+            }
+            System.out.println("Enter the name of the Potion you'd like to use:");
+            System.out.println("**********************************************************************************************");
+            userInput.getUserInput();
+            for(int i = 0; i < potionList.size(); i++){
+                if(userInput.checkInput(potionList.get(i).getName())){
+                    index = i;
+                    check = 1;
+                }
+            }
+            if(check == 0){
+                System.out.println("You don't have this potion\nPlease try again");
+            }
+        
+            if(potionList.get(index).getName().equalsIgnoreCase("Healing_Potion")){
+                hp += 100;
+                System.out.println("Healing Potion used");
+                break;
+            }
+            else if(potionList.get(index).getName().equalsIgnoreCase("Strength_Potion")){
+                strength += 75; 
+                System.out.println("Strength Potion used");
+                break;
+            }
+            else if(potionList.get(index).getName().equalsIgnoreCase("Magic_Potion")){
+                mana += 100; 
+                System.out.println("Magic Potion used");
+                break;
+            }
+            else if(potionList.get(index).getName().equalsIgnoreCase("Luck_Elixir")){
+                agility += 65; 
+                System.out.println("Luck Elixir used");
+                break;
+            }
+            else if(potionList.get(index).getName().equalsIgnoreCase("Mermaid_Tears")){
+                hp += 100;
+                mana += 100;
+                strength += 100;
+                agility += 100; 
+                System.out.println("Mermaid Tears used");
+                break;
+            }
+            else if(potionList.get(index).getName().equalsIgnoreCase("Ambrosia")){
+                hp += 150;
+                mana += 150;
+                strength += 150;
+                agility += 150;
+                dexterity += 150;
+                System.out.println("Ambrosia used");
+                break;
+            }
         }
     }
 
@@ -399,151 +436,189 @@ public class Paladin implements Hero{
         this.hands = hands;
     }
   
+    // Function to check if Hero has enough inventory to equip an item
+    public Boolean canEquipItem(){
+        if((weaponList.size() > 0) || (armorList.size() > 0)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Function to check if Hero can unequip an item
+    public Boolean canUnequipItem(){
+        if((weaponEquip.size() > 0) || !(armorEquip.equalsIgnoreCase(""))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Function to check if Hero can change an item with another
+    public  Boolean canChangeItem(){
+        if(canEquipItem() && canUnequipItem()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     // equip items to the hero
-    public void equipHero(){
-        Boolean doneEquip = true;
-        while(doneEquip){
-            System.out.println("************************************************");
+    public void equipItem(){
+        Boolean itemEquipped = false;
+        while(!(itemEquipped)){
+            System.out.println("************************************************************************************************");
             System.out.println(name);
-            System.out.println("Press A/a to equip the Armor");
-            System.out.println("Press W/w to equip the Weapon");
-            System.out.println("Press B/b if you don't want to equip anymore");
-            System.out.println("Press Q/q to quit");
-            System.out.println("************************************************");
-            String userResponse = userInput.nextLine();
-            if(userResponse.equalsIgnoreCase("a")){
+            System.out.println("Press A/a to equip an Armor");
+            System.out.println("Press W/w to equip a Weapon");
+            System.out.println("Press Q/q to Quit the Game");
+            System.out.println("************************************************************************************************");
+            userInput.getUserInput();
+            if(userInput.checkInput("a")){
                 if(armorEquip.equalsIgnoreCase("")){
                     // Function to display armorlist
                     if(getArmorList().size() > 0){
+                        System.out.println("************************************************************************************************");
+                        System.out.println("You have following Armors in the Inventory:");
                         displayArmorList();
-                        System.out.println("Enter name of the armor you wanna equip:");
-                        String userResponse1 = userInput.nextLine();
+                        System.out.println("Enter name of the Armor you wanna Equip:");
+                        System.out.println("************************************************************************************************");
+                        userInput.getUserInput();
                         int check = 0;
                         for(int i = 0; i < getArmorList().size(); i++){
-                            if(userResponse1.equalsIgnoreCase(getArmorList().get(i).getName())){
+                            if(userInput.checkInput((getArmorList().get(i).getName()))){
                                 check = 1;
-                                setArmorEquip(userResponse1);
+                                setArmorEquip(userInput.getUserResponse());
                                 getArmorList().get(i).setEquipStatus("equipped");
+                                System.out.println("Successfully equipped " + getArmorList().get(i).getName());
+                                itemEquipped = true;
                             }
                         }
                         if(check == 0){
-                            System.out.println("You don't have this armor");
+                            System.out.println("You don't have this armor\nLet's try again");
                         }
                     }
                     else{
-                        System.out.println("You don't have any armors in the Inventory");
+                        System.out.println("You don't have any armors in the Inventory\nPlease try different option");
                     }
                 }
                 else{
-                    System.out.println("Hero already has an Armor on");
+                    System.out.println("Hero already has an Armor on\n Hero can only have one Armor on at a time\nPlease try different option");
                 }
             }
-            else if(userResponse.equalsIgnoreCase("w")){
+            else if(userInput.checkInput("w")){
                 if(hands != 0){
                     if(getWeaponList().size() > 0){
-                        displayWeaponList();
                         int check = 0;
-                        System.out.println("Enter name of the weapon you wanna equip:");
-                        String userResponse1 = userInput.nextLine();
+                        System.out.println("************************************************************************************************");
+                        System.out.println("You have following Weapons in the Inventory:");
+                        displayWeaponList();
+                        System.out.println("Enter name of the Weapon you wanna Equip:");
+                        System.out.println("************************************************************************************************");
+                        userInput.getUserInput();
                         for(int i = 0; i < weaponList.size(); i++){
-                            if(userResponse1.equalsIgnoreCase(weaponList.get(i).getName())){
+                            if(userInput.checkInput(weaponList.get(i).getName())){
                                 if(hands >= weaponList.get(i).getHands()){
                                     hands = hands - weaponList.get(i).getHands();
-                                    setWeaponEquip(userResponse1);
+                                    setWeaponEquip(userInput.getUserResponse());
                                     check = 1;
                                     weaponList.get(i).setEquipStatus("equipped");
+                                    System.out.println("Successfully equipped " + getWeaponList().get(i).getName());
+                                    itemEquipped = true;
                                 }
                                 else{
-                                    System.out.println("You don't have enough hands to equip this weapon");;
+                                    System.out.println("You don't have enough hands to equip this weapon\nPlease try different option");
                                 }
                             }
                         }
                         if(check == 0){
-                            System.out.println("You don't have this weapon in the inventory");;
+                            System.out.println("You don't have this weapon in the inventory\nPlease try different option");;
                         }
                     }
                     else{
-                        System.out.println("You don't have any weapons in the inventory");
+                        System.out.println("You don't have any weapons in the inventory\nPlease try different option");
                     }
                 }
                 else{
-                    System.out.println("You don't have any vaccant hands");
+                    System.out.println("You don't have any vaccant hands\nPlease try different option");
                 }
             }
-            else if(userResponse.equalsIgnoreCase("b")){
-                doneEquip = false;
-            }
-            else if(userResponse.equalsIgnoreCase("q")){
-                System.exit(0);
+            else if(userInput.checkInput("q")){
+                Legends.quit();
             }
             else{
-                System.out.println("Invalid Input\nTry again");
+                System.out.println("Invalid Input\nLet's try again");
             }
         }
     }
 
     // unequip items to the hero
-    public void unequipHero(){
-        Boolean doneEquip = true;
-        while(doneEquip){
-            System.out.println("************************************************");
+    public void unequipItem(){
+        Boolean itemUnequipped = false;
+        while(!(itemUnequipped)){
+            System.out.println("************************************************************************************************");
             System.out.println(name);
             System.out.println("Press A/a to unequip the Armor");
             System.out.println("Press W/w to unequip the Weapon");
-            System.out.println("Press B/b to go back");
-            System.out.println("Press Q/q to quit");
-            System.out.println("************************************************");
-            String userResponse = userInput.nextLine();
-            if(userResponse.equalsIgnoreCase("a")){
+            System.out.println("Press Q/q to Quit the Game");
+            System.out.println("************************************************************************************************");
+            userInput.getUserInput();
+            if(userInput.checkInput("a")){
                 if(armorEquip.equalsIgnoreCase("")){
-                    System.out.println("Hero doesn't have any armor on");
+                    System.out.println("Hero doesn't have any armor on\nPlease try different option");
                 }
                 else{
                     for(int i = 0; i < getArmorList().size(); i++){
                         if(getArmorEquip().equalsIgnoreCase(getArmorList().get(i).getName())){
                             setArmorEquip("");
                             getArmorList().get(i).setEquipStatus("unequipped");
+                            System.out.println("Successfully unequipped " + getArmorList().get(i).getName());
+                            itemUnequipped = true;
                         }
                     }
                 }
             }
-            else if(userResponse.equalsIgnoreCase("w")){
+            else if(userInput.checkInput("w")){
                 if(hands == 0){
-                    System.out.println("Hero doesn't have any equipped weapons");
+                    System.out.println("Hero doesn't have any equipped weapons\nPlease try different option");
                 }
                 else{
-                    System.out.println("Equipped Weapons");
+                    System.out.println("************************************************************************************************");
+                    System.out.println("Hero has following weapons equipped:");
                     for(int i = 0; i < getWeaponEquip().size(); i++){
                         System.out.println(getWeaponEquip().get(i));
                     }
                     System.out.println("Enter name of the weapon you wanna unequip:");
-                    String userResponse1 = userInput.nextLine();
+                    System.out.println("************************************************************************************************");
+                    userInput.getUserInput();
                     int check = 0;
                     int index = -1;
                     for(int i = 0; i < getWeaponEquip().size(); i++){
-                        if(userResponse1.equalsIgnoreCase(getWeaponEquip().get(i))){
+                        if(userInput.checkInput(getWeaponEquip().get(i))){
                             check = 1;
                             index = i;
                         }
                     }
                     if(check == 1){
                         for(int i = 0; i < getWeaponList().size(); i++){
-                            if(userResponse1.equalsIgnoreCase(getWeaponList().get(i).getName())){
+                            if(userInput.checkInput(getWeaponList().get(i).getName())){
                                 getWeaponEquip().remove(index);
                                 getWeaponList().get(i).setEquipStatus("unequipped");
+                                System.out.println("Successfully unequipped " + getWeaponList().get(i).getName());
+                                itemUnequipped = true;
                             }
                         }
                     }
                     else{
-                        System.out.println("Hero doesn't have this weapon");
+                        System.out.println("Hero doesn't have this weapon\nPlease try different option");
                     }
                 }
             }
-            else if(userResponse.equalsIgnoreCase("b")){
-                doneEquip = false;
-            }
-            else if(userResponse.equalsIgnoreCase("q")){
-                System.exit(0);
+            else if(userInput.checkInput("q")){
+                Legends.quit();
             }
             else{
                 System.out.println("Invalid Input\nTry again");
@@ -551,11 +626,61 @@ public class Paladin implements Hero{
         }
     }
 
+    // Change equipped items
+    public void changeItem(){
+        System.out.println("Let's first unequip the item");
+        unequipItem();
+        System.out.println("Now, let's equip the item");
+        equipItem();
+    }
+
     // function to display stats
     public void displayStats(){
-        System.out.println("************************************************");
+        System.out.println("************************************************************************************************");
         System.out.println(name);
         System.out.println("\tHP: " + hp + "\tMana: " + mana + "\tGold:" + gold);
-        System.out.println("************************************************");
+        System.out.println("************************************************************************************************");
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(int[] location) {
+        for(int i = 0; i < location.length; i++){
+            this.location[i] = location[i];
+        }
+    }
+
+    // Function to check if hero has any potions in the inventory
+    public Boolean canDrinkPotion(){
+        if(potionList.size() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Function to check if hero has any item in their inventory or not
+    public Boolean isInventory(){
+        if(getArmorList().size() > 0 || getPotionList().size() > 0 || getSpellList().size() > 0 || getWeaponList().size() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void setWeaponEquip(ArrayList<String> weaponEquip) {
+        this.weaponEquip = weaponEquip;
+    }
+
+    public int getLane() {
+        return lane;
+    }
+
+    public void setLane(int lane) {
+        this.lane = lane;
     }
 }

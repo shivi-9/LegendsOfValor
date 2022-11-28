@@ -9,4 +9,8 @@ public interface Roles {
     public abstract int getHp();
     public abstract void setHp(int hp);
     public abstract void displayStats();
+    public abstract void setLocation(int[] location);
+    public abstract int[] getLocation();
+    public abstract int getLane();
+    public abstract void setLane(int lane);
 }
