@@ -21,7 +21,7 @@ public class Move {
     public Move(Monster monster, ArrayList<Roles> monsterList, GridBoard map, int monsterIndex){
         // Function to get Monster's location and displaying options accordingly
         if(isCloseToHero(monster, map)){
-            beginBattle(map);
+            beginBattleMonster(monster, map);
         }
         else{
             // Move Monster
@@ -392,7 +392,7 @@ public class Move {
             }
             else if(userInput.checkInput("b")){
                 // Function to do battle
-                beginBattle(map);
+                beginBattleHero(hero, map);
                 break;
             }
             else if(userInput.checkInput("m")){
@@ -826,9 +826,114 @@ public class Move {
         mkt.beginShopping(hero);
     }
 
-    // Function to do battle
-    public void beginBattle(GridBoard map){
+    public Hero getInRangeHero(Monster monster, GridBoard map){
+        int[] monsLoc = monster.getLocation();
+        if(monsLoc[0] - 1 > -1 && !(map.getGrid()[monsLoc[0] - 1][monsLoc[1]].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1]]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1]]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[0] - 1 > -1 && monsLoc[1] - 1 > -1 && !(map.getGrid()[monsLoc[0] - 1][monsLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1] - 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1] - 1]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[0] - 1 > -1 && monsLoc[1] + 1 < 8 && !(map.getGrid()[monsLoc[0] - 1][monsLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1] + 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] - 1][monsLoc[1] + 1]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[0] + 1 < 8 && !(map.getGrid()[monsLoc[0] + 1][monsLoc[1]].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1]]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1]]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[0] + 1 < 8 && monsLoc[1] - 1 > -1 && !(map.getGrid()[monsLoc[0] + 1][monsLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1] - 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1] - 1]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[0] + 1 < 8 && monsLoc[1] + 1 < 8 && !(map.getGrid()[monsLoc[0] + 1][monsLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1] + 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0] + 1][monsLoc[1] + 1]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[1] - 1 > -1 && !(map.getGrid()[monsLoc[0]][monsLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0]][monsLoc[1] - 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0]][monsLoc[1] - 1]).getHeroSlot();
+            }
+        }
+        else if(monsLoc[1] + 1 < 8 && !(map.getGrid()[monsLoc[0]][monsLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[monsLoc[0]][monsLoc[1] + 1]).getIsHeroSlot()){
+                return ((CellsWithRoles) map.getGrid()[monsLoc[0]][monsLoc[1] + 1]).getHeroSlot();
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Monster> getInRangeMonsters(Hero hero, GridBoard map){
+        int[] heroLoc = hero.getLocation();
+        ArrayList<Monster> monsList = new ArrayList<Monster>();
+        if(heroLoc[0] - 1 > -1 && !(map.getGrid()[heroLoc[0] - 1][heroLoc[1]].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1]]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1]]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[0] - 1 > -1 && heroLoc[1] - 1 > -1 && !(map.getGrid()[heroLoc[0] - 1][heroLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1] - 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1] - 1]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[0] - 1 > -1 && heroLoc[1] + 1 < 8 && !(map.getGrid()[heroLoc[0] - 1][heroLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1] + 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] - 1][heroLoc[1] + 1]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[0] + 1 < 8 && !(map.getGrid()[heroLoc[0] + 1][heroLoc[1]].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1]]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1]]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[0] + 1 < 8 && heroLoc[1] - 1 > -1 && !(map.getGrid()[heroLoc[0] + 1][heroLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1] - 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1] - 1]).getMonsterSlot());
+            }
+        }
+        else if(heroLoc[0] + 1 < 8 && heroLoc[1] + 1 < 8 && !(map.getGrid()[heroLoc[0] + 1][heroLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1] + 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0] + 1][heroLoc[1] + 1]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[1] - 1 > -1 && !(map.getGrid()[heroLoc[0]][heroLoc[1] - 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0]][heroLoc[1] - 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0]][heroLoc[1] - 1]).getMonsterSlot());
+            }
+        }
+         if(heroLoc[1] + 1 < 8 && !(map.getGrid()[heroLoc[0]][heroLoc[1] + 1].getCellName().equalsIgnoreCase("inaccessible"))){
+            if(((CellsWithRoles) map.getGrid()[heroLoc[0]][heroLoc[1] + 1]).getIsMonsterSlot()){
+                monsList.add(((CellsWithRoles) map.getGrid()[heroLoc[0]][heroLoc[1] + 1]).getMonsterSlot());
+            }
+        }
+        return monsList;
+    }
+
+
+    // Function to do battle for monster
+    public void beginBattleMonster(Monster monster, GridBoard map){
         Battle battle = new Battle();
+
+        Hero hero = getInRangeHero(monster, map);
+
+        //battle.monsterAttack(monster, hero);
+    }
+
+    // Function to do battle for hero
+    public void beginBattleHero(Hero hero, GridBoard map){
+        Battle battle = new Battle();
+        
+        ArrayList<Monster> monsterList = getInRangeMonsters(hero, map);
+
+        //battle.heroAttack(hero, monsterList);
     }
 
     // Function to recall to your nexus
