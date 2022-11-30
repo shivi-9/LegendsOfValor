@@ -158,11 +158,12 @@ Weapon.java: This is the class which has functions and attributes related to all
 
 2. Heroes:
    Can equip an available item, any time they want.
-   All Hero start with Experience Level 1 and 1800 Gold.
+   All Hero start with Experience Level 1 and 1800 Gold and 3 lives.
    Paladin and Warrior begin with a basic swords, and sorcerer begin with a basic lightning spell.
 3. Monster:
    They are created aat start and after every 8 turns.
    Can be of any level upto Heroes Max Level.
+   When they die they are removed from map
 4. Market:
    Hero can buy items and also, sell items at 90% of their original value.
 5. Battle:
