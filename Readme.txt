@@ -149,7 +149,8 @@ Weapon.java: This is the class which has functions and attributes related to all
 1. Added background Music
 2. Added different color for different cell types
 3. Added animation effects 
-4. 
+4. When heros die they respawn in nexus and lose 1 life, If they die and have no life left 
+   they will not respawn. 
 
 ## Overview of the game
 ---------------------------------------------------------------------------
