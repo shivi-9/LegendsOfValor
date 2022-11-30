@@ -1,14 +1,20 @@
-# CS611-Assignment 3
-## Legends: Monsters and Heroes 
+# CS611-Assignment 4
+## Legends of Valor 
 ---------------------------------------------------------------------------
 Shivangi
 shivi09@bu.edu
 U35642613
 
+Jaisal Singh
+jaisal@bu.edu
+U60118211
+
 ## Files
 ---------------------------------------------------------------------------
 Armor.java: This is the class which has functions and attributes related
  	    to all types of Armors.
+      
+Audio.java: It contains code relating to the background music. 
 
 Battle.java: This class hold everything that happens during a battle.
 
@@ -17,6 +23,19 @@ Board.java: This is the super Board class. This class has attributes and
 
 BoardCells.java: This class has attributes and functions which has to be 
 		 implemented on a specific board cell.
+     
+BushCell.java: It extends boardCell class and implements CellsWithBonus interface 
+      and contains attributes specific to Koulou cell type
+
+CaveCell.java: It extends boardCell class and implements CellsWithBonus interface 
+      and contains attributes specific to Cave cell type
+
+CellswithBonus.java: It is an interface that extends CellsWithRoles
+
+CellsWithRoles.java: It is an Interafce that contains methods relating to hero 
+              and monster positioning in cells.
+              
+ColorBG.java: CLass that contains info about the color for different gamecells 
 
 Consumable.java: Super class for Spells and Potion. This class has
 		 functionalities common to both of them.
@@ -59,6 +78,9 @@ IceSpells.java: This class implements the Spells interface. This class hold all
 	        the functionalities related to specific spell items called Ice
 		spells
 
+Inaccessible.java: It extends boardCell class and contains info on inaccessible
+              game cells
+
 ItemFactory.java: This is the super class of specific instance generator classes 
 		  of type Item
 
@@ -66,6 +88,9 @@ Items.java: This is the interface which has functionalities common to all Items
 
 ItemsFactoryProducer.java: This class produces factories specific to required 
 		           Item type
+
+Koulou.java: It extends boardCell class and implements CellsWithBonus interface 
+      and contains attributes specific to Koulou cell type
 
 Legends.java: This is the class for the Legends game. It has all the attributes 
 	      and methods related to Legends game.
@@ -81,8 +106,18 @@ Monster.java: This is the interface which has signatures of functions
 
 MonsterFactory.java: Instance generator factory for Monsters typed Roles
 
+Move.java: Class to coer hero and monster movement on gameboard
+
+Nexus.java: It extends boardCell class and implements CellsWithBonus interface 
+      and contains attributes specific to Nexus cell type
+
+
 Paladin.java: This class has functions and attributes related to all Paladin typed 	
 	      Heroes and this class also implements the hero interface
+        
+PlainCell.java: It extends boardCell class and implements CellsWithBonus interface 
+      and contains attributes specific to plain cell type
+
 
 Potions.java: This is the class which has functions and attributes related
  	      to all types of Potions
@@ -100,6 +135,8 @@ Spells.java: This is the interface which has functionalities common to all Spell
 Spirits.java: This class implements the monster interface. Spirits are a type of 
 	      monsters and this class holds all the functionalities specific to 
 	      Spirits
+        
+UserInput.java: Class to take user input at different stages of the game
 
 Warrior.java: This class has functions and attributes related to all Paladin typed 
 	      Heroes and this class also implements the hero interface
