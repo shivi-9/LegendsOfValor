@@ -146,33 +146,29 @@ Weapon.java: This is the class which has functions and attributes related to all
 
 ## Bonus
 ---------------------------------------------------------------------------
-1. I have made the battle to be a full team battle rather than a 1-1 battle.
-2. I have also updated the functionality so that Hero can equip items whenever 
-   they want.
-3. Weapons are equipped according to their hand values and empty hands of the hero
-4. Spells can be used multiple times based on the mana points hero has and mana 
-   required by the spell.
+1. Added background Music
+2. Added different color for different cell types
+3. Added animation effects 
+4. 
 
 ## Overview of the game
 ---------------------------------------------------------------------------
-1. Map is exactly same as the one mentioned in the HW document with limits on 
-   Upper and lower bounds. But, this can be easily extended. I just implemented it 
-   like so that map can easily fit on my laptop screen.
+1. Map is exactly same as the one mentioned in the HW document with added color effects.
+
 2. Heroes:
    Can equip an available item, any time they want.
    All Hero start with Experience Level 1 and 1800 Gold.
    Paladin and Warrior begin with a basic swords, and sorcerer begin with a basic lightning spell.
 3. Monster:
-   They are created randomly at battle locations.
+   They are created aat start and after every 8 turns.
    Can be of any level upto Heroes Max Level.
 4. Market:
    Hero can buy items and also, sell items at 90% of their original value.
 5. Battle:
-   Heroes have the option to equip items at the beginning of the battle.
-   Heroes always gets the first turn.
+      Heroes always gets the first turn.
    Heroes can see their game stats any time they want.
    If Hero party wins, all the Hero's levels up by 1 and their attribute increase by a certain factor.
-   Heroes cannot leave or quit the game while a battle in underway.
+   Heroes cannot leave the game while a battle in underway.
    If monsters wins, heroes won't level up and will be revived with HP 100.
 *Game will only end after the player presses the q button.
 
@@ -186,40 +182,20 @@ Weapon.java: This is the class which has functions and attributes related to all
 ## Input/Output Example
 ---------------------------------------------------------------------------
 Output:
-************************************************
-Welcome to world of Monsters and Legend
+
+************************************************************************************************
+WELCOME!
+This is the land of LEGENDS
+************************************************************************************************
 1. Start the Game
 2. See the Instructions
 3. Quit
-************************************************
 Enter your choice:
+
 1
 ************************************************
 Good choice!
 Let's begin your adventure now
-************************************************
-Enter the size of your Map:(Limit 4-8)
-6
-************************************************
-+---+---+---+---+---+---+
-| O |   |   | M |   | M |
-+---+---+---+---+---+---+
-|   |   |   |   | M | I |
-+---+---+---+---+---+---+
-| M |   | I | M |   | M |
-+---+---+---+---+---+---+
-|   |   |   |   | I | I |
-+---+---+---+---+---+---+
-|   | M |   | I | M | I |
-+---+---+---+---+---+---+
-| M | I | I | I |   | M |
-+---+---+---+---+---+---+
-O: Current Position of Hero Party
-M: Market Place
-I: Inaccessible Place
-************************************************
-Enter the number of Heros you want (Limit 2-5):
-4
 ************************************************
 **All the Heroes start with experience level 1, 1800 gold coins and 100 HP**
 1. Warriors:
@@ -262,220 +238,269 @@ Enter the number of Heros you want (Limit 2-5):
         3.6 Caliber Heist
                 Mana: 400       Strength: 400   Agility: 400    Dexterity: 400
 ************************************************
-Enter the index of Hero you want:(Format: 1.1)
+
+Enter the index of Hero you want for Lane 1:(Format: 1.1)
 1.1
-2.1
-3.1
-4.1
+Enter the index of Hero you want for Lane 2:(Format: 1.1)
+2.5
+Enter the index of Hero you want for Lane 3:(Format: 1.1)
+6.4
 Please choose from the above options only
 Try again
-3.2 
-************************************************
+3.1
+
+
+************************************************************************************************
 You have chosen the following Heroes:
-1. Gaerdal_Ironhand
-2. Rillifane_Rallathil
-3. Parzival
-4. Sehanine_Moonbow
-************************************************
+H1: Gaerdal_Ironhand
+H2: Kalabar
+H3: Parzival
+************************************************************************************************
+You are going to fight the following Monsters:
+M1: Blinky
+	HP:1000	 Damage:450	Defense:350
+M2: Casper
+	HP:1000	 Damage:100	Defense:100
+M3: Blinky
+	HP:1000	 Damage:450	Defense:350
+************************************************************************************************
+
+(*******Cell Color is not visible in readme *****)
+
++-------+-------+-------+-------+-------+-------+-------+-------+
+| M1    |       |       | M2    |       |       | M3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| H1    |       |       | H2    |       |       | H3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+************************************************************************************************
+Blue cells: Hero's nexus
+Red cells: Monter's nexus
+White Cells: Heroes and Monsters can't enter these spaces
+Purple Cells: Koulou spaces increase the strength of any hero who is inside them
+Yellow Cells: Cave spaces increase the agility of any hero inside them
+Green Cells: Bush spaces increase the dexterity of any hero inside them
+Black Cells: These spaces have no special attributes
+************************************************************************************************
 Let's explore the land of Legends now
-************************************************
-+---+---+---+---+---+---+
-| O |   |   | M |   | M |
-+---+---+---+---+---+---+
-|   |   |   |   | M | I |
-+---+---+---+---+---+---+
-| M |   | I | M |   | M |
-+---+---+---+---+---+---+
-|   |   |   |   | I | I |
-+---+---+---+---+---+---+
-|   | M |   | I | M | I |
-+---+---+---+---+---+---+
-| M | I | I | I |   | M |
-+---+---+---+---+---+---+
-Press I/i for Instructions
-Press P/p to see the Map
-Press Q/q to Quit
-Enter your next move:
-s
-************************************************
-+---+---+---+---+---+---+
-|   |   |   | M |   | M |
-+---+---+---+---+---+---+
-| O |   |   |   | M | I |
-+---+---+---+---+---+---+
-| M |   | I | M |   | M |
-+---+---+---+---+---+---+
-|   |   |   |   | I | I |
-+---+---+---+---+---+---+
-|   | M |   | I | M | I |
-+---+---+---+---+---+---+
-| M | I | I | I |   | M |
-+---+---+---+---+---+---+
-O: Current Position of Hero Party
-M: Market Place
-I: Inaccessible Place
-************************************************
-************************************************
-Press Y/y if hero party wants to equip or unequip items
-Press N/n if hero party does NOT wants to equip or unequip items
-n
-************************************************
-LET's BEGIN THE BATTLE
-YOU ARE GOING TO FIGHT THE FOLLOWING MONSTERS
-BigBad-Wolf
-        HP:1000
-BigBad-Wolf
-        HP:1000
-Blinky
-        HP:1000
-BigBad-Wolf
-        HP:1000
-************************************************
-Gaerdal_Ironhand
-Press E/e to equip a item
-Press U/u to unequip a item
-Press Q/q to quit
-Press B/b to get back
-************************************************
-e
-************************************************
-Gaerdal_Ironhand
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
+************************************************************************************************
+Round 1 begins!
+************************************************************************************************
+Hero 1's turn
+Welcome to your Nexus
+************************************************************************************************
+You can choose to do any of the following:
+Press E/e to Equip/Unequip/Change a Weapon/Armor
+Press P/p to Drink a Potion
+Press M/m to Move to another Cell
+Press T/t to Teleport to another Lane
+Press S/s to Shop
+Press I/i to See your Inventory
+Press D/d to See your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+m
+************************************************************************************************
+Controls:
+Press W/w to Move up
+Press A/a to Move left
+Press S/s to Move down
+Press D/d to Move right
+Press Q/q to Quit the Game
+************************************************************************************************
 w
-WEAPON
-1. Sword
-Enter name of the weapon you wanna equip:
-Sword
-************************************************
-Gaerdal_Ironhand
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
-b
-************************************************
-Rillifane_Rallathil
-Press E/e to equip a item
-Press U/u to unequip a item
-Press Q/q to quit
-Press B/b to get back
-************************************************
-b
-************************************************
-Parzival
-Press E/e to equip a item
-Press U/u to unequip a item
-Press Q/q to quit
-Press B/b to get back
-************************************************
-e
-************************************************
-Parzival
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
-w
-************************************************
-WEAPON
-1. Sword
-************************************************
-Enter name of the weapon you wanna equip:
-sword
-************************************************
-Parzival
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
-b
-************************************************
-Sehanine_Moonbow
-Press E/e to equip a item
-Press U/u to unequip a item
-Press Q/q to quit
-Press B/b to get back
-************************************************
-e
-************************************************
-Sehanine_Moonbow
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
-w
-************************************************
-WEAPON
-1. Sword
-************************************************
-Enter name of the weapon you wanna equip:
-sword
-************************************************
-Sehanine_Moonbow
-Press A/a to equip the Armor
-Press W/w to equip the Weapon
-Press B/b if you don't want to equip anymore
-Press Q/q to quit
-************************************************
-b
-Gaerdal_Ironhand, please choose the action:
-1. Attack using the weapon
-2. Cast a spell
-3. Drink a potion to protect yourself
-4. View hero's inventory
-5. View hero's statistics
+Koulou has increased Hero's strength by 10%
+************************************************************************************************
++-------+-------+-------+-------+-------+-------+-------+-------+
+| M1    |       |       | M2    |       |       | M3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| H1    |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       | H2    |       |       | H3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+************************************************************************************************
+Monster 1's turn
+************************************************************************************************
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       | M2    |       |       | M3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| M1    |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| H1    |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       | H2    |       |       | H3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+Hero 2's turn
+Welcome to your Nexus
+************************************************************************************************
+You can choose to do any of the following:
+Press E/e to Equip/Unequip/Change a Weapon/Armor
+Press P/p to Drink a Potion
+Press M/m to Move to another Cell
+Press T/t to Teleport to another Lane
+Press S/s to Shop
+Press I/i to See your Inventory
+Press D/d to See your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+t
+************************************************************************************************
+Enter the Target Hero Index(Eg: 1, 2, 3):
+************************************************************************************************
 1
-Sword
-Enter the name of weapon you want to use:
-sword
-YOU ARE GOING TO FIGHT THE FOLLOWING MONSTERS
-BigBad-Wolf
-        HP:1000
-BigBad-Wolf
-        HP:1000
-Blinky
-        HP:1000
-BigBad-Wolf
-        HP:1000
-Enter the name of the monster you want to target:
-BigBad-Wolf
-Hero: Gaerdal_Ironhand attacked Monster: BigBad-Wolf for 49 damage
-Monster's Updated Statistics
-************************************************
-BigBad-Wolf
-        HP: 951
-************************************************
-Monster: Blinky attacked Hero: Rillifane_Rallathil for 446 damage
-Hero's Updated Statistics
-************************************************
-Rillifane_Rallathil
-        HP: 554 Mana: 1300      Gold:1800
-************************************************
-Rillifane_Rallathil, please choose the action:
-1. Attack using the weapon
-2. Cast a spell
-3. Drink a potion to protect yourself
-4. View hero's inventory
-5. View hero's statistics
-2
+************************************************************************************************
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       | M2    |       |       | M3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| M1    |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| H1    | H2    |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       | H3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+************************************************************************************************
+************************************************************************************************
+Monster 2's turn
+************************************************************************************************
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       | M3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| M1    |       |       | M2    |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| H1    | H2    |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+|       |       |       |       |       |       | H3    |       |
++-------+-------+-------+-------+-------+-------+-------+-------+
+Hero 3's turn
+Welcome to your Nexus
+************************************************************************************************
+You can choose to do any of the following:
+Press E/e to Equip/Unequip/Change a Weapon/Armor
+Press P/p to Drink a Potion
+Press M/m to Move to another Cell
+Press T/t to Teleport to another Lane
+Press S/s to Shop
+Press I/i to See your Inventory
+Press D/d to See your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+s
+************************************************************************************************
+***WELCOME TO THE MARKET***
+You can buy or sell items here
+Let's begin shopping
+************************************************************************************************
+Press S/s to sell an Item
+Press B/b to Buy an Item
+Press E/e to Exit the Market
+Press D/d to see your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+b
+************************************************************************************************
+***ITEMS FOR SALE***
+WEAPONS
+Dagger
+	Required Level: 1
+	Cost: 200
+	Damage: 250
+	Hands Required: 1
+Armors
+Breastplate
+	Required Level: 3
+	Cost: 350
+	Damage Reduction: 600
 Spells
-1. Lightning_Dagger - lightening
-Enter the name of spell you want to use
-Lightning_Dagger
-YOU ARE GOING TO FIGHT THE FOLLOWING MONSTERS
-BigBad-Wolf
-        HP:951
-BigBad-Wolf
-        HP:1000
-Blinky
-        HP:1000
-BigBad-Wolf
-        HP:1000
+Lava_Comet
+	Required Level: 7
+	Cost: 800
+	Damage: 1000
+	Mana Cost: 550
+Frost_Blizzard
+	Required Level: 5
+	Cost: 750
+	Damage: 850
+	Mana Cost: 350
+Spark_Needles
+	Required Level: 2
+	Cost: 500
+	Damage: 600
+	Mana Cost: 200
+Potions
+Mermaid_Tears
+	Required Level: 5
+	Cost: 850
+	Attribute Increase: 100
+Enter the name of the Item you want to buy:
+************************************************************************************************
+dagger
+Dagger bought for 200
+************************************************************************************************
+************************************************************************************************
+Press S/s to sell an Item
+Press B/b to Buy an Item
+Press E/e to Exit the Market
+Press D/d to see your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+e
+************************************************************************************************
+You can choose to do any of the following:
+Press E/e to Equip/Unequip/Change a Weapon/Armor
+Press P/p to Drink a Potion
+Press M/m to Move to another Cell
+Press T/t to Teleport to another Lane
+Press S/s to Shop
+Press I/i to See your Inventory
+Press D/d to See your Statistics
+Press Q/q to Quit the Game
+************************************************************************************************
+
+
+
+
